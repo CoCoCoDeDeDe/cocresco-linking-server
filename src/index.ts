@@ -29,3 +29,5 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+// src/index.ts 启动了多个服务（Hono, Aedes, MongoDB）。如果直接杀掉进程，可能会导致数据库连接未关闭或 MQTT 离线消息处理不完整。
