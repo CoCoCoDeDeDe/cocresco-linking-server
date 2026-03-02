@@ -34,5 +34,25 @@ export const initMQTT = (mongoUri: string) => {
     console.log(`✨ [MQTT] 设备连接: ${client.id}`);
   });
 
+  broker.on('publish', async (packet, client) => {
+    if (client) {
+      const topic = packet.topic;
+      const payload = packet.payload.toString();
+
+      // 1. 尝试解析 JSON 数据
+      try {
+        const data = JSON.parse(payload);
+        console.log(`📡 [数据上报] 来自设备: ${client.id}, 主题: ${topic}, 数据:`, data);
+
+        // 2. 这里后续直接对接你的核心 Service
+        // await TelemetryService.saveData(client.id, data);
+        // await RuleEngine.process(client.id, data);
+
+      } catch (e) {
+        console.log(`⚠️ [解析失败] 设备 ${client.id} 发送了非 JSON 数据`);
+      }
+    }
+  });
+
   return { broker, server };
 };
