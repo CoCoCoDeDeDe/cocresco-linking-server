@@ -1,4 +1,9 @@
 // src/mqtt.ts
+/**
+ * 协议鉴权 (Authentication)：你需要重写 broker.authenticate 钩子，通过 MongoDB 校验设备连接的用户名和密码。
+ * WebSocket 支持：package.json 中已经安装了 ws，但尚未在 index.ts 或 mqtt.ts 中初始化。
+ * 如果你希望 React 前端能直接通过网页订阅 MQTT 消息，需要开启 WebSocket 监听端口（.env 中已预留 WS_PORT=8888）。
+ */
 import aedes from 'aedes';
 import { createServer } from 'net';
 import aedesPersistence from 'aedes-persistence-mongodb';
